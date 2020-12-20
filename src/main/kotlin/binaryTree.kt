@@ -1,5 +1,5 @@
 class BinaryNode<Element>(
-    val value: Element,
+    private val value: Element,
     var leftChild: BinaryNode<Element>? = null,
     var rightChild: BinaryNode<Element>? = null
 ) {
@@ -18,7 +18,7 @@ class BinaryNode<Element>(
     }
 }
 
-fun manTree(){
+fun mainTree(){
     val zero = BinaryNode(0)
     val one = BinaryNode(1)
     val two = BinaryNode(2)
