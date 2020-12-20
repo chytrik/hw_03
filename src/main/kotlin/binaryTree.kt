@@ -1,3 +1,5 @@
+import javax.lang.model.element.Element
+
 class BinaryNode<Element>(
     private val value: Element,
     var leftChild: BinaryNode<Element>? = null,
@@ -13,10 +15,25 @@ class BinaryNode<Element>(
         rightChild?.postorderTraversal()
         performAction()
     }
+    override fun toString() = diagram(this)
+    private fun diagram(node: BinaryNode<Element>?,
+                        top: String = "",
+                        root: String = "",
+                        bottom: String = ""): String {
+        return node?.let {
+            if (node.leftChild == null && node.rightChild == null) {
+                "$root${node.value}\n"
+            } else {
+                diagram(node.rightChild, "$top ", "$top┌──", "$top│ ") +
+                        root + "${node.value}\n" + diagram(node.leftChild, "$bottom│ ", "$bottom└──", "$bottom ")
+            }
+        } ?: "${root}null\n"
+    }
     private fun performAction(){
         println("Navštíven uzel s hodnotou: $value")
     }
 }
+
 
 fun mainTree(){
     val zero = BinaryNode(0)
@@ -38,4 +55,8 @@ fun mainTree(){
     println("preorderTraversal")
     println("Prochází se stromem nejprve podstromy, poté se rekurzivně prochází jejich kořeny.")
     tree.postorderTraversal()
+    println()
+    println("Diagram")
+    println(tree)
+
 }
